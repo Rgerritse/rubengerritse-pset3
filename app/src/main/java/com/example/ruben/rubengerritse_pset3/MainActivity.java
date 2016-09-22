@@ -5,6 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+
+import java.io.IOException;
+
+import java.net.URL;
+
+
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -13,8 +20,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void searchMovie(View view) {
+    public void searchMovie(View view) throws IOException {
         EditText search_edit_text = (EditText) findViewById(R.id.search_edit_text);
-        String url = String.format("http://www.omdbapi.com/?s=%s", search_edit_text.getText().toString());
+
+        URL url = new URL(String.format("http://www.omdbapi.com/t=%s", search_edit_text.getText().toString()));
+        new SearchOmdb().execute(url);
+
     }
 }
