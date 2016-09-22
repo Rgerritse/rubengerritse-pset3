@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-
 import java.io.IOException;
 
 import java.net.URL;
@@ -23,8 +22,13 @@ public class MainActivity extends AppCompatActivity {
     public void searchMovie(View view) throws IOException {
         EditText search_edit_text = (EditText) findViewById(R.id.search_edit_text);
 
-        URL url = new URL(String.format("http://www.omdbapi.com/t=%s", search_edit_text.getText().toString()));
-        new SearchOmdb().execute(url);
+        URL url = new URL(String.format("http://www.omdbapi.com/?t=%s", search_edit_text.getText().toString()));
+
+//        Toast toast = Toast.makeText(this, url.toString(), Toast.LENGTH_SHORT);
+//        toast.show();
+
+
+        new SearchOmdb(this.getApplicationContext()).execute(url);
 
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.JsonReader;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,11 +21,11 @@ import java.net.URL;
  */
 
 public class SearchOmdb extends AsyncTask<URL, Integer, String> {
-    String title;
-    String plot;
+    String title = "";
+    String plot = "";
 
     Context context;
-    private SearchOmdb(Context context) {
+    public SearchOmdb(Context context) {
         this.context = context.getApplicationContext();
     }
 
@@ -44,26 +45,33 @@ public class SearchOmdb extends AsyncTask<URL, Integer, String> {
         }
 
         JsonReader reader = new JsonReader(new InputStreamReader(in));
+//
         try {
             reader.beginObject();
             while (reader.hasNext()){
                 String name = reader.nextName();
-                if (name.equals("Title")){
-                    title = name;
-                } else if (name.equals("Plot")){
-                    title = name;
-                }
+                title+= name;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             reader.endObject();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
+//            while (reader.hasNext()){
+//                String name = reader.nextName();
+//                if (name.equals("Title")) {
+//                    title = name;
+//                }
+////                } else if (name.equals("Plot")){
+////                    plot = name;
+////                }
 
+//
+//        try {
+//            reader.endObject();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
         return null;
     }
 
@@ -72,8 +80,9 @@ public class SearchOmdb extends AsyncTask<URL, Integer, String> {
         super.onPostExecute(s);
 
         Intent getMoviePageScreenIntent = new Intent(context, MoviePage.class);
+        getMoviePageScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getMoviePageScreenIntent.putExtra("Title", title);
-        getMoviePageScreenIntent.putExtra("Plot", plot);
+//        getMoviePageScreenIntent.putExtra("Plot", plot);
         context.startActivity(getMoviePageScreenIntent);
     }
 }
