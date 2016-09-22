@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -23,10 +24,6 @@ public class MainActivity extends AppCompatActivity {
         EditText search_edit_text = (EditText) findViewById(R.id.search_edit_text);
 
         URL url = new URL(String.format("http://www.omdbapi.com/?t=%s", search_edit_text.getText().toString()));
-
-//        Toast toast = Toast.makeText(this, url.toString(), Toast.LENGTH_SHORT);
-//        toast.show();
-
 
         new SearchOmdb(this.getApplicationContext()).execute(url);
 

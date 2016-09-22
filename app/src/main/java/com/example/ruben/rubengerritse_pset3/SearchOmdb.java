@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -44,18 +45,27 @@ public class SearchOmdb extends AsyncTask<URL, Integer, String> {
             urlConnection.disconnect();
         }
 
-        JsonReader reader = new JsonReader(new InputStreamReader(in));
+        getStringFromInputStream(in);
+
+
+//        JsonReader reader = null;
 //
-        try {
-            reader.beginObject();
-            while (reader.hasNext()){
-                String name = reader.nextName();
-                title+= name;
-            }
-            reader.endObject();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+
+//        try {
+//            reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+//            reader.beginObject();
+//            title = "bla";
+////            while (reader.hasNext()){
+////                String name = reader.nextName();
+////                if(name.equals("Title"))
+////                {
+////                    title = reader.nextString();
+////                }
+////            }
+//            reader.endObject();
+//        } catch (IOException e1) {
+//            e1.printStackTrace();
+//        }
 //            while (reader.hasNext()){
 //                String name = reader.nextName();
 //                if (name.equals("Title")) {
@@ -82,7 +92,34 @@ public class SearchOmdb extends AsyncTask<URL, Integer, String> {
         Intent getMoviePageScreenIntent = new Intent(context, MoviePage.class);
         getMoviePageScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getMoviePageScreenIntent.putExtra("Title", title);
+//        getMoviePageScreenIntent.putExtra("Title", title);
 //        getMoviePageScreenIntent.putExtra("Plot", plot);
         context.startActivity(getMoviePageScreenIntent);
     }
+
+    private void getStringFromInputStream(InputStream is) {
+
+        BufferedReader br = null;
+
+        String line;
+        try {
+
+            br = new BufferedReader(new InputStreamReader(is));
+            while ((line = br.readLine()) != null) {
+                title += line;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }
