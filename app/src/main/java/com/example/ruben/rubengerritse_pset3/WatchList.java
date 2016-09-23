@@ -2,7 +2,6 @@ package com.example.ruben.rubengerritse_pset3;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 /**
@@ -10,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
  */
 
 public class WatchList extends AppCompatActivity {
-    private RecyclerView recyclerView;
+//    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +18,8 @@ public class WatchList extends AppCompatActivity {
 
 //        String[] movies = {"movie 1", "movie 2", "movie 3"};
 
-        setContentView(R.layout.activity_main);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+//        setContentView(R.layout.activity_main);
+//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 //        RecyclerView.Adapter adapter = new MyAdapter(movies);
 //        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 //        recyclerView.setLayoutManager(layoutManager);
