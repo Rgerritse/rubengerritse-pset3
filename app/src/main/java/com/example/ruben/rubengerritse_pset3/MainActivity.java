@@ -6,12 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.io.IOException;
 
 import java.net.URL;
-import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        new DatabaseConnector(this, recyclerView.getRootView(), 1).execute(url);
+        new DatabaseConnector(this, this.findViewById(android.R.id.content), 0).execute(url);
     }
 
 

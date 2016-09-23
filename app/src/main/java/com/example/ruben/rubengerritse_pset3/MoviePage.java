@@ -3,9 +3,6 @@ package com.example.ruben.rubengerritse_pset3;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,7 +27,7 @@ public class MoviePage extends AppCompatActivity {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        new DetailsRetrieval(this, this.findViewById(android.R.id.content).getRootView()).execute(url);
+        new DatabaseConnector(this, this.findViewById(android.R.id.content).getRootView(), 2).execute(url);
 //
 
     }

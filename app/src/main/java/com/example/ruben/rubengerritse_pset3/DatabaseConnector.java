@@ -3,7 +3,6 @@ package com.example.ruben.rubengerritse_pset3;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,16 +73,10 @@ public class DatabaseConnector extends AsyncTask<URL,Integer,String>{
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (method == 1){
+        if (method == 0){
             updateSearchRecyclerView();
         } else {
-            TextView titleTextView = (TextView) view.findViewById(R.id.title_text_view);
-
-            try {
-                titleTextView.setText(json.getString("Title"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            updateMoviePage();
         }
     }
 
@@ -98,6 +91,17 @@ public class DatabaseConnector extends AsyncTask<URL,Integer,String>{
             } else {
                 Toast.makeText(context, "No movies found", Toast.LENGTH_SHORT).show();
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateMoviePage(){
+        TextView titleTextView = (TextView) view.findViewById(R.id.title_text_view);
+        TextView plotTextView = (TextView) view.findViewById(R.id.plot_text_view);
+        try {
+            titleTextView.setText(json.getString("Title"));
+            plotTextView.setText(json.getString("Plot"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
