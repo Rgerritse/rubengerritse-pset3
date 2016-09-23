@@ -6,16 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 /**
  * Created by ruben on 22-9-16.
  */
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
-    private String[] movies;
+    private JSONArray moviesArray;
     private View.OnClickListener listener;
 
-    public MyAdapter(String[] movies) {
-        this.movies = movies;
+    public MyAdapter(JSONArray movies) {
+        this.moviesArray = movies;
         listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,11 +45,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(MyAdapter.ViewHolder vh, int position){
-        vh.itemTextView.setText(movies[position]);
+        try {
+            vh.itemTextView.setText(moviesArray.getJSONObject(position).getString("Title"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public int getItemCount(){
-        return movies.length;
+        return moviesArray.length();
     }
 }

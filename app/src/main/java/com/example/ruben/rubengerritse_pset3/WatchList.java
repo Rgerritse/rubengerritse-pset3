@@ -17,13 +17,13 @@ public class WatchList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_list);
 
-        String[] movies = {"movie 1", "movie 2", "movie 3"};
+//        String[] movies = {"movie 1", "movie 2", "movie 3"};
 
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        RecyclerView.Adapter adapter = new MyAdapter(movies);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+//        RecyclerView.Adapter adapter = new MyAdapter(movies);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(adapter);
     }
 }
