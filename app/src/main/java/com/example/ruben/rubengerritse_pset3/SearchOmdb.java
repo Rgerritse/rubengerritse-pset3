@@ -3,6 +3,7 @@ package com.example.ruben.rubengerritse_pset3;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,16 +69,25 @@ public class SearchOmdb extends AsyncTask<URL, Integer, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
 
-        Intent getMoviePageScreenIntent = new Intent(context, MoviePage.class);
-        getMoviePageScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
         try {
-            getMoviePageScreenIntent.putExtra("Title", json.getString("Title"));
+            if (json.getString("Response").equals("True")){
+                Intent getMoviePageScreenIntent = new Intent(context, MoviePage.class);
+                getMoviePageScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                try {
+                    getMoviePageScreenIntent.putExtra("Title", json.getString("Title"));
+                    getMoviePageScreenIntent.putExtra("Plot", json.getString("Plot"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                context.startActivity(getMoviePageScreenIntent);
+            } else {
+                Toast.makeText(context, "No movie found", Toast.LENGTH_SHORT).show();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//        getMoviePageScreenIntent.putExtra("Title", title);
-//        getMoviePageScreenIntent.putExtra("Plot", plot);
-        context.startActivity(getMoviePageScreenIntent);
+
+
     }
 }

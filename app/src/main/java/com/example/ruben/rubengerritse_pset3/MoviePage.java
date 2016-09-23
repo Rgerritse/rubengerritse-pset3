@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by ruben on 22-9-16.
@@ -20,10 +19,12 @@ public class MoviePage extends AppCompatActivity {
 
         Intent PrevScreenIntent = getIntent();
         String title = PrevScreenIntent.getStringExtra("Title");
-//        Toast.makeText(this, "Title " + title, Toast.LENGTH_SHORT).show();
-//        String plot = PrevScreenIntent.getStringExtra("Plot");
+        String plot = PrevScreenIntent.getStringExtra("Plot");
 
         TextView titleTextView = (TextView) findViewById(R.id.title_text_view);
         titleTextView.setText(title);
+
+        TextView plotTextView = (TextView) findViewById(R.id.plot_text_view);
+        plotTextView.setText(plot);
     }
 }
