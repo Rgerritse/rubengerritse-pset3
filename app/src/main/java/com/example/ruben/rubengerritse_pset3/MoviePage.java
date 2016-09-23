@@ -20,10 +20,10 @@ public class MoviePage extends AppCompatActivity {
 
         Intent PrevScreenIntent = getIntent();
         String title = PrevScreenIntent.getStringExtra("Title");
-        Toast.makeText(this, "Title " + title, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Title " + title, Toast.LENGTH_SHORT).show();
 //        String plot = PrevScreenIntent.getStringExtra("Plot");
 
-//        TextView titleTextView = (TextView) findViewById(R.id.title_text_view);
-//        titleTextView.setText(title);
+        TextView titleTextView = (TextView) findViewById(R.id.title_text_view);
+        titleTextView.setText(title);
     }
 }

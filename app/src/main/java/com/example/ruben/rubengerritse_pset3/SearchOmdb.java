@@ -3,27 +3,24 @@ package com.example.ruben.rubengerritse_pset3;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.JsonReader;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 /**
  * Created by ruben on 22-9-16.
  */
 
 public class SearchOmdb extends AsyncTask<URL, Integer, String> {
-    String title = "";
-    String plot = "";
+    JSONObject json;
+//    String title = "";
+//    String plot = "";
 
     Context context;
     public SearchOmdb(Context context) {
@@ -34,54 +31,36 @@ public class SearchOmdb extends AsyncTask<URL, Integer, String> {
     protected String doInBackground(URL... params) {
         URL url = params[0];
 
-        InputStream in = null;
-        HttpURLConnection urlConnection = null;
+        BufferedReader in = null;
         try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            in = new BufferedInputStream(urlConnection.getInputStream());
+            in = new BufferedReader(new InputStreamReader(url.openStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String inputLine;
+        String jsonString = "";
+
+        try {
+            while ((inputLine = in.readLine()) != null) {
+                jsonString += inputLine;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            urlConnection.disconnect();
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        getStringFromInputStream(in);
+        try {
+            json = new JSONObject(jsonString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-
-//        JsonReader reader = null;
-//
-
-//        try {
-//            reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-//            reader.beginObject();
-//            title = "bla";
-////            while (reader.hasNext()){
-////                String name = reader.nextName();
-////                if(name.equals("Title"))
-////                {
-////                    title = reader.nextString();
-////                }
-////            }
-//            reader.endObject();
-//        } catch (IOException e1) {
-//            e1.printStackTrace();
-//        }
-//            while (reader.hasNext()){
-//                String name = reader.nextName();
-//                if (name.equals("Title")) {
-//                    title = name;
-//                }
-////                } else if (name.equals("Plot")){
-////                    plot = name;
-////                }
-
-//
-//        try {
-//            reader.endObject();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
         return null;
     }
 
@@ -91,35 +70,14 @@ public class SearchOmdb extends AsyncTask<URL, Integer, String> {
 
         Intent getMoviePageScreenIntent = new Intent(context, MoviePage.class);
         getMoviePageScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        getMoviePageScreenIntent.putExtra("Title", title);
+
+        try {
+            getMoviePageScreenIntent.putExtra("Title", json.getString("Title"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 //        getMoviePageScreenIntent.putExtra("Title", title);
 //        getMoviePageScreenIntent.putExtra("Plot", plot);
         context.startActivity(getMoviePageScreenIntent);
     }
-
-    private void getStringFromInputStream(InputStream is) {
-
-        BufferedReader br = null;
-
-        String line;
-        try {
-
-            br = new BufferedReader(new InputStreamReader(is));
-            while ((line = br.readLine()) != null) {
-                title += line;
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
 }
