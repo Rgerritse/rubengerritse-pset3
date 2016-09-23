@@ -1,8 +1,11 @@
 package com.example.ruben.rubengerritse_pset3;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+
+import java.util.Set;
 
 /**
  * Created by ruben on 22-9-16.
@@ -15,6 +18,15 @@ public class WatchList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_list);
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        Set<String> savedMovies;
+        if (pref.contains("savedMovies")){
+            savedMovies = pref.getStringSet("savedMovies", null);
+            
+        } else {
+
+        }
 
 //        String[] movies = {"movie 1", "movie 2", "movie 3"};
 

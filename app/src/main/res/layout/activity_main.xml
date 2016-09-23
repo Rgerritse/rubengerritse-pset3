@@ -9,7 +9,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.example.ruben.rubengerritse_pset3.MainActivity">
+    tools:context="com.example.ruben.rubengerritse_pset3.MainActivity"
+    android:weightSum="1">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="to watchlist"
+        android:onClick="toWatchList"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +41,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/search_recycler_view">
     </android.support.v7.widget.RecyclerView>
