@@ -1,15 +1,6 @@
 package com.example.ruben.rubengerritse_pset3;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,10 +41,5 @@ public class DatabaseConnector extends AsyncTask<URL,Integer,String>{
             }
         }
         return jsonString;
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
     }
 }

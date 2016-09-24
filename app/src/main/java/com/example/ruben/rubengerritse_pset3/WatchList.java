@@ -11,14 +11,11 @@ import android.view.View;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.Set;
-
 /**
  * Created by ruben on 22-9-16.
  */
 
 public class WatchList extends AppCompatActivity {
-    private RecyclerView recyclerView;
     private JSONArray movieArray;
 
     @Override
@@ -39,23 +36,6 @@ public class WatchList extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.Adapter adapter = new MyAdapter(movieArray);
         recyclerView.setAdapter(adapter);
-
-//        Set<String> savedMovies;
-//        if (pref.contains("savedMovies")){
-//            savedMovies = pref.getStringSet("savedMovies", null);
-//
-//        } else {
-//
-//        }
-
-//        String[] movies = {"movie 1", "movie 2", "movie 3"};
-
-//        setContentView(R.layout.activity_main);
-//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-//        RecyclerView.Adapter adapter = new MyAdapter(movies);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setAdapter(adapter);
     }
 
     public void toSearch(View view) {

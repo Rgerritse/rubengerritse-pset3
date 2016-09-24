@@ -3,15 +3,12 @@ package com.example.ruben.rubengerritse_pset3;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,9 +16,6 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -42,51 +36,43 @@ public class MoviePage extends AppCompatActivity {
         Intent PrevScreenIntent = getIntent();
         imdbID = PrevScreenIntent.getStringExtra("imdbID");
 
-        try {
-            URL url = new URL(String.format("http://www.omdbapi.com/?i=%s", imdbID));
-            String jsonString = new DatabaseConnector().execute(url).get();
-            movie = new JSONObject(jsonString);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        updateTextViews();
-        updateImageView();
+        updateViews();
         updateButtonText();
     }
 
-    private void updateTextViews(){
+    private void updateViews(){
         TextView titleTextView = (TextView) findViewById(R.id.title_text_view);
         TextView plotTextView = (TextView) findViewById(R.id.plot_text_view);
+        TextView yearTextView = (TextView) findViewById(R.id.year_text_view);
+        TextView directorTextView = (TextView) findViewById(R.id.director_text_view);
+        TextView actorsTextView = (TextView) findViewById(R.id.actors_text_view);
+        TextView ratingTextView = (TextView) findViewById(R.id.rating_text_view);
+
+        ImageView poster = (ImageView) findViewById(R.id.poster_image_view);
+
 
         try {
+            URL movieUrl = new URL(String.format("http://www.omdbapi.com/?i=%s", imdbID));
+            String jsonString = new DatabaseConnector().execute(movieUrl).get();
+            movie = new JSONObject(jsonString);
+
             titleTextView.setText(movie.getString("Title"));
             plotTextView.setText(movie.getString("Plot"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
+            yearTextView.setText(String.format("Year: %s", movie.getString("Year")));
+            directorTextView.setText(String.format("Director(s): %s", movie.getString("Director")));
+            actorsTextView.setText(String.format("Actor(s): %s", movie.getString("Actors")));
+            ratingTextView.setText(String.format("Rating: %s / 10", movie.getString("imdbRating") ));
 
-    private void updateImageView(){
-        try {
-            URL url = new URL(movie.getString("Poster"));
-            Bitmap bmp = new ImageCollector().execute(url).get();
-            ImageView poster = (ImageView) findViewById(R.id.poster_image_view);
+            URL imageUrl = new URL(movie.getString("Poster"));
+            Bitmap bmp = new ImageCollector().execute(imageUrl).get();
             poster.setImageBitmap(bmp);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
@@ -145,6 +131,5 @@ public class MoviePage extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 }
