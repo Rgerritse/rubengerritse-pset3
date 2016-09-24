@@ -1,9 +1,11 @@
 package com.example.ruben.rubengerritse_pset3;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.Set;
 
@@ -19,14 +21,14 @@ public class WatchList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_list);
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-        Set<String> savedMovies;
-        if (pref.contains("savedMovies")){
-            savedMovies = pref.getStringSet("savedMovies", null);
-            
-        } else {
-
-        }
+//        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+//        Set<String> savedMovies;
+//        if (pref.contains("savedMovies")){
+//            savedMovies = pref.getStringSet("savedMovies", null);
+//
+//        } else {
+//
+//        }
 
 //        String[] movies = {"movie 1", "movie 2", "movie 3"};
 
@@ -36,5 +38,10 @@ public class WatchList extends AppCompatActivity {
 //        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 //        recyclerView.setLayoutManager(layoutManager);
 //        recyclerView.setAdapter(adapter);
+    }
+
+    public void toSearch(View view) {
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        startActivity(mainIntent);
     }
 }

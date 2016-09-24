@@ -27,12 +27,6 @@ public class DatabaseConnector extends AsyncTask<URL,Integer,String>{
     private View view;
     private int method;
 
-    public DatabaseConnector(Context context, View view, int method) {
-        this.context = context;
-        this.view = view;
-        this.method = method;
-    }
-
     @Override
     protected String doInBackground(URL... params) {
         URL url = params[0];
@@ -67,43 +61,11 @@ public class DatabaseConnector extends AsyncTask<URL,Integer,String>{
             e.printStackTrace();
         }
 
-        return null;
+        return jsonString;
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (method == 0){
-            updateSearchRecyclerView();
-        } else {
-            updateMoviePage();
-        }
-    }
-
-    private void updateSearchRecyclerView(){
-        try {
-            if (json.getString("Response").equals("True")){
-                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.search_recycler_view);
-                String moviesArrayString = json.getString("Search");
-                moviesArray = new JSONArray(moviesArrayString);
-                RecyclerView.Adapter adapter = new MyAdapter(moviesArray);
-                recyclerView.setAdapter(adapter);
-            } else {
-                Toast.makeText(context, "No movies found", Toast.LENGTH_SHORT).show();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void updateMoviePage(){
-        TextView titleTextView = (TextView) view.findViewById(R.id.title_text_view);
-        TextView plotTextView = (TextView) view.findViewById(R.id.plot_text_view);
-        try {
-            titleTextView.setText(json.getString("Title"));
-            plotTextView.setText(json.getString("Plot"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 }
