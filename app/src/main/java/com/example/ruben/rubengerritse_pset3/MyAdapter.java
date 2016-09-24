@@ -35,7 +35,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                     JSONObject movie = moviesArray.getJSONObject(position);
                     Intent moviePageIntent =  new Intent(context, MoviePage.class);
                     moviePageIntent.putExtra("imdbID", movie.getString("imdbID"));
-//                    moviePageIntent.putExtra("json_string", movie.toString());
                     context.startActivity(moviePageIntent);
 
                 } catch (JSONException e) {

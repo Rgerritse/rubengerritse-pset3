@@ -52,20 +52,13 @@ public class MoviePage extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-//        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-//        if(pref.contains("savedMovies")){
-//            Set<String> savedMovies = pref.getStringSet("savedMovies", null);
-//            if (savedMovies.contains(imdbID)){
-//                Button changeStatusButton = (Button) findViewById(R.id.change_status_button);
-//                changeStatusButton.setText("Remove from watchlist");
-//            }
-//        }
-
     }
 
-//    public void changeStatus(View view) {
-//        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+    public void changeStatus(View view) {
+        SharedPreferences savedList = getApplicationContext().getSharedPreferences("SavedList", 0);
+//        if ()
+    }
+
 //        Set<String> savedMovies;
 //        if (pref.contains("savedMovies"))
 //        {

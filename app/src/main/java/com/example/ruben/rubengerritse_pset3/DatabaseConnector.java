@@ -21,11 +21,6 @@ import java.net.URL;
  */
 
 public class DatabaseConnector extends AsyncTask<URL,Integer,String>{
-    private JSONArray moviesArray;
-    private JSONObject json;
-    private Context context;
-    private View view;
-    private int method;
 
     @Override
     protected String doInBackground(URL... params) {
@@ -54,13 +49,6 @@ public class DatabaseConnector extends AsyncTask<URL,Integer,String>{
                 e.printStackTrace();
             }
         }
-
-        try {
-            json = new JSONObject(jsonString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         return jsonString;
     }
 

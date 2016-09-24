@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
     }
 
     public void searchMovie(View view) throws IOException {
@@ -37,11 +39,9 @@ public class MainActivity extends AppCompatActivity{
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        JSONObject json = null;
-        String jsonString;
         try {
-            jsonString = new DatabaseConnector().execute(url).get();
-            json = new JSONObject(jsonString);
+            String jsonString = new DatabaseConnector().execute(url).get();
+            JSONObject json = new JSONObject(jsonString);
             if (json.getString("Response").equals("True")){
                 String moviesArrayString = json.getString("Search");
                 JSONArray moviesArray = new JSONArray(moviesArrayString);
