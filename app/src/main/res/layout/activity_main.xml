@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:text="Search"
             android:layout_weight="1"
-            android:onClick="searchMovie"
+            android:onClick="searchDatabase"
             />
     </LinearLayout>
 

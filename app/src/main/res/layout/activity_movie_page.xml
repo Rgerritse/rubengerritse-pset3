@@ -12,6 +12,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/title_text_view"
         android:text="title"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/poster_image_view"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"

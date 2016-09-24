@@ -1,6 +1,7 @@
 package com.example.ruben.rubengerritse_pset3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,11 +27,18 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+//        Create empty movieArray for the watch list if it doesn't exist
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        if (!pref.contains("movieArray")){
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("movieArray", new JSONArray().toString());
+            editor.commit();
+        }
 
     }
 
-    public void searchMovie(View view) throws IOException {
+
+    public void searchDatabase(View view) throws IOException {
         EditText search_edit_text = (EditText) findViewById(R.id.search_edit_text);
 
         URL url = new URL(String.format("http://www.omdbapi.com/?s=%s", search_edit_text.getText().toString()));
