@@ -50,7 +50,6 @@ public class MoviePage extends AppCompatActivity {
 
         ImageView poster = (ImageView) findViewById(R.id.poster_image_view);
 
-
         try {
             URL movieUrl = new URL(String.format("http://www.omdbapi.com/?i=%s", imdbID));
             String jsonString = new DatabaseConnector().execute(movieUrl).get();
@@ -63,9 +62,13 @@ public class MoviePage extends AppCompatActivity {
             actorsTextView.setText(String.format("Actor(s): %s", movie.getString("Actors")));
             ratingTextView.setText(String.format("Rating: %s / 10", movie.getString("imdbRating") ));
 
-            URL imageUrl = new URL(movie.getString("Poster"));
-            Bitmap bmp = new ImageCollector().execute(imageUrl).get();
-            poster.setImageBitmap(bmp);
+            if (!movie.getString("Poster").equals("N/A")) {
+                URL imageUrl = new URL(movie.getString("Poster"));
+                Bitmap bmp = new ImageCollector().execute(imageUrl).get();
+                poster.setImageBitmap(bmp);
+            } else {
+                poster.setVisibility(View.GONE);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

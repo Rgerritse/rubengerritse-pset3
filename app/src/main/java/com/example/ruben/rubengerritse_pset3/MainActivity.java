@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 
@@ -34,14 +35,13 @@ public class MainActivity extends AppCompatActivity{
             editor.putString("movieArray", new JSONArray().toString());
             editor.commit();
         }
-
     }
-
 
     public void searchDatabase(View view) throws IOException {
         EditText search_edit_text = (EditText) findViewById(R.id.search_edit_text);
 
-        URL url = new URL(String.format("http://www.omdbapi.com/?s=%s", search_edit_text.getText().toString()));
+        String query = URLEncoder.encode(search_edit_text.getText().toString().trim(), "UTF-8");
+        URL url = new URL(String.format("http://www.omdbapi.com/?s=%s", query));
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.search_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
