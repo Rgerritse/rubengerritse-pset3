@@ -40,6 +40,7 @@ public class MoviePage extends AppCompatActivity {
         updateButtonText();
     }
 
+//    Updates the text and image views using the information stored in the JSON object.
     private void updateViews(){
         TextView titleTextView = (TextView) findViewById(R.id.title_text_view);
         TextView plotTextView = (TextView) findViewById(R.id.plot_text_view);
@@ -80,6 +81,7 @@ public class MoviePage extends AppCompatActivity {
         }
     }
 
+//    Updates the text on the add/remove button.
     private void updateButtonText(){
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         String movieArrayString = pref.getString("movieArray", null);
@@ -100,6 +102,7 @@ public class MoviePage extends AppCompatActivity {
         }
     }
 
+//    Adds or removes a movie from the SharedPreferences.
     public void changeStatus(View view) {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         SharedPreferences.Editor editor = pref.edit();

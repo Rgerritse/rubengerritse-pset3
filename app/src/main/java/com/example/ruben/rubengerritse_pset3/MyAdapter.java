@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 /**
  * Created by ruben on 22-9-16.
+ * Adapter for a RecyclerView.
  */
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
@@ -24,6 +25,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     public MyAdapter(JSONArray movies) {
         this.moviesArray = movies;
         listener = new View.OnClickListener() {
+
+//            Open the MoviePage activity upon click of an item
             @Override
             public void onClick(View view) {
 

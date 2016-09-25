@@ -6,18 +6,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
  * Created by ruben on 22-9-16.
+ * Activity of the WatchList
  */
 
 public class WatchList extends AppCompatActivity {
     private JSONArray movieArray;
 
+//    Obtains the watchlist from the shared preferences and displays it if possible. If the watch
+//    list is empty then it returns an message saying so.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,15 +37,37 @@ public class WatchList extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.watch_list_recycler_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter adapter = new MyAdapter(movieArray);
-        recyclerView.setAdapter(adapter);
+        if (movieArray.length() != 0) {
+            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.watch_list_recycler_view);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+            RecyclerView.Adapter adapter = new MyAdapter(movieArray);
+            recyclerView.setAdapter(adapter);
+        } else {
+            TextView emptyMessage = (TextView) findViewById(R.id.empty_message_text_view);
+            emptyMessage.setVisibility(View.VISIBLE);
+        }
     }
 
-    public void toSearch(View view) {
-        Intent mainIntent = new Intent(this, MainActivity.class);
-        startActivity(mainIntent);
+//    Obtain the layout of the menu.
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.navigation, menu);
+        return true;
+    }
+
+//    Opens the selected Activity on selection of an menu item.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()){
+            case R.id.search_menu_item:
+                Intent SearchIntent = new Intent(this, MainActivity.class);
+                startActivity(SearchIntent);
+                break;
+            case R.id.watch_list_menu_item:
+                break;
+        }
+        return true;
     }
 }

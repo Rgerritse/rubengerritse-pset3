@@ -9,6 +9,7 @@ import java.net.URL;
 
 /**
  * Created by ruben on 24-9-16.
+ * Opens a stream given an URL and returns a Bitmap object.
  */
 
 public class ImageCollector extends AsyncTask<URL,Integer,Bitmap> {

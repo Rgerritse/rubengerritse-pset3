@@ -9,6 +9,8 @@ import java.net.URL;
 
 /**
  * Created by ruben on 23-9-16.
+ * Makes an connection to the OMDB database in the background and gives the URL and returns the
+ * JSON Object in string form.
  */
 
 public class DatabaseConnector extends AsyncTask<URL,Integer,String>{

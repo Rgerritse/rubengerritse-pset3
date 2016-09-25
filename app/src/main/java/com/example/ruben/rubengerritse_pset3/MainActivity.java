@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,7 +22,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
-
+// Activity of the MainActivity (Search Activity).
 public class MainActivity extends AppCompatActivity{
 
     @Override
@@ -37,6 +39,29 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+//    Obtain the layout of the menu.
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.navigation, menu);
+        return true;
+    }
+
+//    Opens the selected Activity on selection of an menu item.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()){
+            case R.id.search_menu_item:
+                break;
+            case R.id.watch_list_menu_item:
+                Intent watchListIntent = new Intent(this, WatchList.class);
+                startActivity(watchListIntent);
+                break;
+        }
+        return true;
+    }
+
+//    Searches the database upon query and updates the recycler view with the output.
     public void searchDatabase(View view) throws IOException {
         EditText search_edit_text = (EditText) findViewById(R.id.search_edit_text);
 
@@ -65,10 +90,5 @@ public class MainActivity extends AppCompatActivity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    public void toWatchList(View view) {
-        Intent watchListIntent = new Intent(this, WatchList.class);
-        startActivity(watchListIntent);
     }
 }
