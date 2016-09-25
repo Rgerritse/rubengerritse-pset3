@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -38,6 +40,30 @@ public class MoviePage extends AppCompatActivity {
 
         updateViews();
         updateButtonText();
+    }
+
+    //    Obtain the layout of the menu.
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.navigation, menu);
+        return true;
+    }
+
+    //    Opens the selected Activity on selection of an menu item.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()){
+            case R.id.search_menu_item:
+                Intent SearchIntent = new Intent(this, MainActivity.class);
+                startActivity(SearchIntent);
+                break;
+            case R.id.watch_list_menu_item:
+                Intent watchListIntent = new Intent(this, WatchList.class);
+                startActivity(watchListIntent);
+                break;
+        }
+        return true;
     }
 
 //    Updates the text and image views using the information stored in the JSON object.
